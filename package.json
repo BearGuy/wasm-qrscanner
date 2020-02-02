@@ -1,0 +1,33 @@
+{
+  "name": "wasm-qrscanner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build:ts && npm run build:esm && npm run copy",
+    "build:esm": "npx snowpack --dest dist/web_modules --optimize",
+    "build:ts": "rm -rf dist && tsc",
+    "build:ts:watch": "tsc -w",
+    "copy": "copyfiles 'src/*.html' 'src/assets/*' 'src/lib/quirc/*.js' ''src/lib/quirc/*.wasm'' 'src/**/*.gif' 'src/*.css' dist -u 1",
+    "dev": "npm run build && concurrently 'npm run build:ts:watch' 'serve -s dist'",
+    "prestart": "npm run build",
+    "start": "serve -s dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "snowpack": {
+    "webDependencies": [
+      "preact"
+    ]
+  },
+  "dependencies": {
+    "preact": "^10.2.1"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.2.0",
+    "concurrently": "^5.0.2",
+    "serve": "^11.3.0",
+    "typescript": "^3.7.5"
+  }
+}
